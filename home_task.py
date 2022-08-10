@@ -10,7 +10,7 @@ from sqlalchemy import create_engine
 database = 'TRN'
 login = 'TestUserLogin2'
 password = '12345'
-db_config_param = 'DRIVER={ODBC Driver 18 for SQL Server};SERVER=192.168.1.3:1433;DATABASE=%(database)s;UID=%(login)s;PWD=%(password)s' % {'database': database, 'login': login, 'password': password}
+db_config_param = 'SERVER=192.168.1.3:1433;DATABASE=%(database)s;UID=%(login)s;PWD=%(password)s' % {'database': database, 'login': login, 'password': password}
 
 
 class CreateDataBatch:
