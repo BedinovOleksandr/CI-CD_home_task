@@ -8,6 +8,9 @@ pipeline {
 				sh 'pytest home_task.py'
 				sh 'pytest jenkins_test.py'
 			}
+			withPythonEnv('python') {
+				sh 'pytest jenkins_test.py'
+			}
 		}
 	}
 	}
