@@ -6,6 +6,7 @@ pipeline {
 			withPythonEnv('python') {
 				sh 'pip install -r requirements.txt'
 				sh 'pytest home_task.py'
+				sh 'pytest jenkins_test.py'
 			}
 		}
 	}
