@@ -3,11 +3,12 @@ pipeline {
    stages {
       stage('Creation of release branch')  {
         steps{
-			sh 'git checkout develop'
-			sh 'git pull'
-			sh 'git checkout -b release_${RELEASE_NUMBER} develop'
-			sh 'git merge develop'
-			sh 'git push https://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@github.com/BedinovOleksandr/CI-CD_home_task.git'
+            sh 'git branch'
+//			sh 'git checkout develop'
+//			sh 'git pull'
+//			sh 'git checkout -b release_${RELEASE_NUMBER} develop'
+//			sh 'git merge develop'
+//			sh 'git push https://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@github.com/BedinovOleksandr/CI-CD_home_task.git'
 		}
 	}
 	stage ('Execute tests') {
