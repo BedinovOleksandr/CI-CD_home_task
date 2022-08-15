@@ -1,0 +1,23 @@
+pipeline {
+   agent any
+   stages {
+      stage('Environment setup and test execution') {
+        steps{
+			withPythonEnv('python3') {
+				sh 'pip install -r requirements.txt'
+				sh 'pytest tests.py'
+			}
+		}
+	}
+	}
+	post {
+		success {
+			sh 'git checkout develop'
+			sh 'git pull'
+			sh 'git merge origin/${BRANCH_NAME}'
+			withCredentials ([usernameColonPassword(credentialsId:'Git_Creds', variable: 'creds')]) {
+				sh 'git push https://${creds}@github.com/ViktoriiaVakhrina/CI_CD.git'
+			}
+		}
+	}
+}
