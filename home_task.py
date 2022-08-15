@@ -63,30 +63,6 @@ class TestEmployer:
 
         assert len(id_name_amount) == 0, f'Ids are not unique: {id_name_amount}'
 
-    def test_emails(self):
-        pattern = r"^[-\w\.]+@([-\w]+\.)+[-\w]{2,4}$"
-        query = """
-              SELECT [employee_id]
-                  ,[first_name]
-                  ,[last_name]
-                  ,[email]
-                  ,[phone_number]
-                  ,[hire_date]
-                  ,[job_id]
-                  ,[salary]
-                  ,[manager_id]
-                  ,[department_id]
-              FROM [TRN].[hr].[employees]
-              """
-
-        batch_result = CreateDataBatch(db_config_params=db_config_param, query=query).query_result()
-        id_name_amount = []
-        for r in batch_result:
-            if re.match(pattern, r.email) is None:
-                id_name_amount.append(r)
-
-        assert len(id_name_amount) == 0, f'Invalid emails: {id_name_amount}'
-
 
 class TestRegion:
     def test_table_duplicates(self):
