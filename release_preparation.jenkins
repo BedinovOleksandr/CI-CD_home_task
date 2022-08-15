@@ -10,7 +10,7 @@ pipeline {
 		         sh 'git pull'
 			     sh 'git checkout -b release_${RELEASE_NUMBER} develop'
 			     sh 'git merge develop'
-			     sh 'git push https://$username:$password@github.com/BedinovOleksandr/CI-CD_home_task.git'
+			     sh 'git push https://BedinovOleksandr:w2XBx9GqjY6WdgE@github.com/BedinovOleksandr/CI-CD_home_task.git'
                }
 		}
 	}
