@@ -11,6 +11,13 @@ pipeline {
 //                sh 'GIT_SSH_COMMAND="ssh -i $SSH_KEY" git push git@github.com:BedinovOleksandr/CI-CD_home_task.git'
 
                 sh 'git branch'
+                sh 'git branch -- delete develop'
+                sh 'git branch -- delete release_1.1'
+                sh 'git branch -- delete release_1.3'
+                sh 'git branch -- delete release_1.5'
+                sh 'git branch -- delete release_1.6'
+                sh 'git branch -- delete release_20'
+                sh 'git branch'
             }
 		}
 	}
