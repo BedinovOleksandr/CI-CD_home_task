@@ -1,0 +1,32 @@
+pipeline {
+   agent any
+   stages {
+		stage ('Tests execution') {
+			steps {
+				echo 'Tests execution...'
+			}
+		}
+		stage('Deploying from release branch')  {
+			steps{
+				sh 'git config --global user.email alekzzandr@gmail.com'
+				sh 'git config --global user.name "BedinovOleksandr"'
+				withCredentials([usernameColonPassword(credentialsId: 'e7d4d4f2-a8bb-41dc-828f-6db678856524', variable: 'creds')]) {
+					sh 'git checkout main'
+					sh 'git merge origin/${RELEASE_NUMBER}'
+					sh 'git pull origin main'
+					sh 'git push https://${creds}@github.com/BedinovOleksandr/CI-CD_home_task.git'
+				}
+			}
+			}
+		stage ('Merging release and develop'){
+			steps {
+			withCredentials([usernameColonPassword(credentialsId: 'e7d4d4f2-a8bb-41dc-828f-6db678856524', variable: 'creds')]) {
+					sh 'git checkout develop'
+					sh 'git merge origin/${RELEASE_NUMBER}'
+					sh 'git pull origin develop'
+					sh 'git push https://${creds}@github.com/BedinovOleksandr/CI-CD_home_task.git'
+					}
+				}
+			}
+		}
+}
