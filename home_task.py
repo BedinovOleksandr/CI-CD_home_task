@@ -98,3 +98,35 @@ class TestRegion:
 
         assert len(id_name_amount) == 0, f"region_name not in 'Europe', 'Americas', 'Asia', 'Middle East and Africa': {id_name_amount}"
 
+class TestJobs:
+    def test_employers_salary(self):
+        query = """
+            SELECT j.job_id
+                  ,j.job_title
+                  ,j.min_salary
+                  ,j.max_salary
+                  ,e.salary
+                  ,e.employee_id
+            FROM TRN.hr.jobs as j
+            join TRN.hr.employees as e on j.job_id = e.job_id and (e.salary < j.min_salary or e.salary > j.max_salary)
+        """
+        batch_result = CreateDataBatch(db_config_params=db_config_param, query=query).query_result()
+        id_name_amount = []
+        for r in batch_result:
+            id_name_amount.append(r)
+        assert len(id_name_amount) == 0, f"Employer salary not between min and max salary': {id_name_amount}"
+
+    def test_job_id(self):
+        query = """
+            SELECT j.job_id
+                  ,j.job_title
+                  ,j.min_salary
+                  ,j.max_salary
+            FROM TRN.hr.jobs as j
+            WHERE j.job_id is null
+            """
+        batch_result = CreateDataBatch(db_config_params=db_config_param, query=query).query_result()
+        id_name_amount = []
+        for r in batch_result:
+            id_name_amount.append(r)
+        assert len(id_name_amount) == 0, f'job_id is null: {id_name_amount}'
