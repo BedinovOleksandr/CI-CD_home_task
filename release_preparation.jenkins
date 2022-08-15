@@ -4,8 +4,8 @@ pipeline {
       stage('Creation of release branch')  {
         steps{
             sh 'git branch'
-            sh 'git --delete release_1.1'
-            sh 'git --delete release_1.2'
+            sh 'git branch --delete release_1.1'
+            sh 'git branch --delete release_1.2'
 //			sh 'git checkout develop'
 //			sh 'git pull'
 //			sh 'git checkout -b release_${RELEASE_NUMBER} develop'
