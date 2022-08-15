@@ -6,6 +6,7 @@ pipeline {
 //            withCredentials([usernameColonPassword(credentialsId: 'e7d4d4f2-a8bb-41dc-828f-6db678856524', variable: 'creds')]) {
             script{
             GIT_CREDS = credentials('e7d4d4f2-a8bb-41dc-828f-6db678856524')
+            echo GIT_CREDS
 			sh 'git checkout develop'
 		    sh 'git pull'
 			sh 'git checkout -b release_${RELEASE_NUMBER} develop'
