@@ -3,12 +3,12 @@ pipeline {
    stages {
       stage('Creation of release branch')  {
         steps{
-			withCredentials ([usernameColonPassword(credentialsId:'Git_Creds', variable: 'creds')]) {
+			withCredentials([usernameColonPassword(credentialsId: 'e7d4d4f2-a8bb-41dc-828f-6db678856524', variable: 'creds')]) {
 			sh 'git checkout develop'
 			sh 'git pull'
 			sh 'git checkout -b release_${RELEASE_NUMBER} develop'
 			sh 'git merge develop'
-			sh 'git push https://${creds}@github.com/ViktoriiaVakhrina/CI_CD.git'
+			sh 'git push https://${creds}@github.com/BedinovOleksandr/CI-CD_home_task.git'
 			}
 		}
 	}
