@@ -15,8 +15,8 @@ pipeline {
 			sh 'git checkout develop'
 			sh 'git pull'
 			sh 'git merge origin/${BRANCH_NAME}'
-			withCredentials ([usernameColonPassword(credentialsId:'Git_Creds', variable: 'creds')]) {
-				sh 'git push https://${creds}@github.com/ViktoriiaVakhrina/CI_CD.git'
+			withCredentials([sshUserPrivateKey(credentialsId: 'f37d4cca-f21b-4b0e-8e5d-6163ec297273', keyFileVariable: 'SSH_KEY')]) {
+				sh 'GIT_SSH_COMMAND="ssh -i $SSH_KEY" git push git@github.com:BedinovOleksandr/CI-CD_home_task.git'
 			}
 		}
 	}

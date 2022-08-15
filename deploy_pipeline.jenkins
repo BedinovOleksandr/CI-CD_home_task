@@ -10,21 +10,21 @@ pipeline {
 			steps{
 				sh 'git config --global user.email alekzzandr@gmail.com'
 				sh 'git config --global user.name "BedinovOleksandr"'
-				withCredentials([usernameColonPassword(credentialsId: 'e7d4d4f2-a8bb-41dc-828f-6db678856524', variable: 'creds')]) {
+				withCredentials([sshUserPrivateKey(credentialsId: 'f37d4cca-f21b-4b0e-8e5d-6163ec297273', keyFileVariable: 'SSH_KEY')]) {
 					sh 'git checkout main'
 					sh 'git merge origin/${RELEASE_NUMBER}'
 					sh 'git pull origin main'
-					sh 'git push https://${creds}@github.com/BedinovOleksandr/CI-CD_home_task.git'
+					sh 'GIT_SSH_COMMAND="ssh -i $SSH_KEY" git push git@github.com:BedinovOleksandr/CI-CD_home_task.git'
 				}
 			}
 			}
 		stage ('Merging release and develop'){
 			steps {
-			withCredentials([usernameColonPassword(credentialsId: 'e7d4d4f2-a8bb-41dc-828f-6db678856524', variable: 'creds')]) {
+			withCredentials([sshUserPrivateKey(credentialsId: 'f37d4cca-f21b-4b0e-8e5d-6163ec297273', keyFileVariable: 'SSH_KEY')]) {
 					sh 'git checkout develop'
 					sh 'git merge origin/${RELEASE_NUMBER}'
 					sh 'git pull origin develop'
-					sh 'git push https://${creds}@github.com/BedinovOleksandr/CI-CD_home_task.git'
+					sh 'GIT_SSH_COMMAND="ssh -i $SSH_KEY" git push git@github.com:BedinovOleksandr/CI-CD_home_task.git'
 					}
 				}
 			}
